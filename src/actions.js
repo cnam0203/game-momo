@@ -11,3 +11,11 @@ export const onSignOut = () => {
         type: 'SIGN_OUT'
     }
 }
+
+export const createNewRoom = (room) => {
+    console.log(room)
+    return {
+        type: 'CREATE_NEW_ROOM',
+        payload: room
+    }
+}

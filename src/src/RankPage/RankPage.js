@@ -4,6 +4,7 @@ import ava from '../../image/thuylinh.png'
 import brand from '../../image/brand.png'
 import $ from 'jquery';
 import { connect } from 'react-redux'
+import history from '../../history';
 
 const styles = {
     button: {
@@ -86,28 +87,30 @@ class RankPage extends Component {
         const { userInfo } = this.props
         $.ajax({
             type: "GET",
-            url: "http://192.168.1.121:5000/ranking",
+            url: "http://192.168.1.104:5000/ranking",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('x-access-token', userInfo.token);
               },
             success: (data) => {
+                console.log(data)
                 this.setState({listCompetitors: data.users})
             },
             error: (err) => {
               alert("Failed")
             }})
-        // $.ajax({
-        //         type: "GET",
-        //         url: "http://192.168.1.121:5000/myRanking",
-        //         beforeSend: function (xhr) {
-        //             xhr.setRequestHeader('x-access-token', userInfo.token);
-        //           },
-        //         success: (data) => {
-        //             this.setState({myRank: data.myRank})
-        //         },
-        //         error: (err) => {
-        //           alert("Failed")
-        //         }})
+        $.ajax({
+                type: "GET",
+                url: "http://192.168.1.104:5000/ranking_user",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('x-access-token', userInfo.token);
+                  },
+                success: (data) => {
+                    console.log(data)
+                    this.setState({myRank: data})
+                },
+                error: (err) => {
+                  alert("Failed")
+                }})
     }
 
    render() {
@@ -117,7 +120,7 @@ class RankPage extends Component {
     return (
         <div style={{backgroundColor: '#a50064', width: '100%', height: '100%'}}>
             <div style={{color: "white", fontWeight: "bold", fontSize: "20px", marginLeft: "90%"}}>{userInfo.name}</div>
-            <img src={logo} style={{width:'80px', height: '80px', margin: '20px'}} alt='momo app'/>
+            <img src={logo} style={{cursor: "pointer", width:'80px', height: '80px', margin: '20px'}} alt='momo app' onClick={() => history.push('/')}/>
             <img src={brand} style={{width:'150px'}} alt='momo app'/>
             <div style={{width: "100%", textAlign: "center", marginTop: "100px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>Ranking</div>
             <div style={styles.container}>

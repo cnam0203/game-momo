@@ -19,6 +19,7 @@ store.subscribe(throttle(() => {
   saveState({
       isSignIn: store.getState().isSignIn,
       userInfo: store.getState().userInfo,
+      room: store.getState().room,
   })
 }, 1000))
 

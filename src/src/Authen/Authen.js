@@ -124,7 +124,7 @@ class Authen extends Component {
         data: {name: this.state.username,
               phone: this.state.email,
               password: this.state.password},
-        url: "http://192.168.1.121:5000/signup",
+        url: "http://192.168.1.104:5000/signup",
         success: (data) => {
             this.setState({signUp: true})
             this.setState({email: ''})
@@ -143,7 +143,7 @@ class Authen extends Component {
       data: {
             phone: this.state.email,
             password: this.state.password},
-      url: "http://192.168.1.121:5000/login",
+      url: "http://192.168.1.104:5000/login",
       success: (data) => {
           this.setState({signUp: true})
           this.setState({email: ''})

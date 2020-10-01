@@ -1,6 +1,7 @@
 const initialState = {
     isSignIn: false,
     userInfo: null,
+    room: null,
 }
 
 const reducers = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const reducers = (state = initialState, action) => {
                 isSignIn: false,
                 userInfo: null
             })
+        case 'CREATE_NEW_ROOM':
+            console.log("reducer", action.payload)
+            return Object.assign({}, state, {
+                room: action.payload
+        })
         default:
             return state
     }

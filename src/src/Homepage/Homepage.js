@@ -52,7 +52,7 @@ class HomePage extends Component {
     }
 
     matchCompetitor = () => {
-        history.push('/roomPage/1234')
+        history.push('/waitingRoomPage')
     }
 
     render() {
@@ -61,7 +61,7 @@ class HomePage extends Component {
         return isSignIn ? (
             <div style={{backgroundColor: '#a50064', width: '100%', height: '100%'}}>
                 <div style={{color: "white", fontWeight: "bold", fontSize: "20px", marginLeft: "90%"}}>{userInfo.name}</div>
-                <img src={logo} style={{width:'80px', height: '80px', margin: '10px'}} alt='momo app'/>
+                <img src={logo} style={{cursor: "pointer", width:'80px', height: '80px', margin: '10px'}} alt='momo app'/>
                 <img src={brand} style={{width:'150px'}} alt='momo app'/>
                 <div style={{ width: "100%", textAlign: "center", marginTop: "100px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>Menu</div>
                 <div style={styles.listChoice}>
