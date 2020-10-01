@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import Authen from '../Authen/Authen'
 import logo from '../../image/logo1.png'
 import brand from '../../image/brand.png'
+import { connect } from 'react-redux'
+import { onSignOut } from '../../actions'
+import history from '../../history';
 
 const styles = {
     button: {
@@ -35,38 +39,34 @@ class HomePage extends Component {
         super(props)
     }
 
-    showListCompetitor = () => {
-        window.location = "/listCompetitor/1234"
-    }
-
     showHistory = () => {
-
+        history.push('/history')
     }
 
     showRank = () => {
-        window.location = "/rankPage/1234"
+        history.push('/rankPage')
     }
 
     logOut = () => {
-        window.location = "/"
+        this.props.onSignOut()
     }
 
     matchCompetitor = () => {
-        window.location = "/roomPage/1234"
+        history.push('/roomPage/1234')
     }
 
     render() {
-        return (
+        const { isSignIn, userInfo } = this.props
+
+        return isSignIn ? (
             <div style={{backgroundColor: '#a50064', width: '100%', height: '100%'}}>
+                <div style={{color: "white", fontWeight: "bold", fontSize: "20px", marginLeft: "90%"}}>{userInfo.name}</div>
                 <img src={logo} style={{width:'80px', height: '80px', margin: '10px'}} alt='momo app'/>
                 <img src={brand} style={{width:'150px'}} alt='momo app'/>
                 <div style={{ width: "100%", textAlign: "center", marginTop: "100px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>Menu</div>
                 <div style={styles.listChoice}>
                     <div style={styles.container}>
-                        <button style={styles.button} onClick={() => this.showListCompetitor()}>THÁCH ĐẤU</button>
-                    </div>
-                    <div style={styles.container}>
-                        <button style={styles.button} onClick={() => this.matchCompetitor()}>GHÉP CẶP</button>
+                        <button style={styles.button} onClick={() => this.matchCompetitor()}>BẮT ĐẦU</button>
                     </div>
                     <div style={styles.container}>
                         <button style={styles.button} onClick={() => this.showHistory()}>LỊCH SỬ</button>
@@ -79,8 +79,21 @@ class HomePage extends Component {
                     </div>
                 </div>
             </div>
-        )
+        ) : <Authen/>
     }
 }
 
-export default HomePage
+const mapStateToProps = (state) => {
+    return {
+        isSignIn: state.isSignIn,
+        userInfo: state.userInfo,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSignOut: () => {dispatch(onSignOut())}
+      }
+    }
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

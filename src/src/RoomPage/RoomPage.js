@@ -48,14 +48,17 @@ const competitor = {
 class RankPage extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            isReady: false
+        }
     }
 
    render() {
-    return (
+    return this.state.isReady ? (
         <div style={{backgroundColor: '#a50064', width: '100%', height: '100%'}}>
             <img src={logo} style={{width:'80px', height: '80px', margin: '20px'}} alt='momo app'/>
             <img src={brand} style={{width:'150px'}} alt='momo app'/>
-    <div style={{width: "100%", textAlign: "center", marginTop: "20px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>{`RoomID: ${1234}`}</div>
+        <div style={{width: "100%", textAlign: "center", marginTop: "20px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>{`RoomID: ${1234}`}</div>
             <div>{`Hiệp: ${1}`}</div>
             <div>{`Username: Thùy Linh`}</div>
             <div>{`Phone     : 0909101010`}</div>
@@ -65,7 +68,7 @@ class RankPage extends Component {
             <img src={paper} alt="paper"/>
             <img src={rock} alt="rock"/>
         </div>
-    )
+        ) : null
    }
 }
 

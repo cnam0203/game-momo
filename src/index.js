@@ -3,13 +3,32 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducers from './reducers'
+import { Router } from "react-router";
+import history from './history';
+import { loadState, saveState } from './localStorage'
+import throttle from 'lodash/throttle'
 
+const persistedState = loadState();
+
+let store = createStore(reducers, persistedState)
+
+store.subscribe(throttle(() => {
+  saveState({
+      isSignIn: store.getState().isSignIn,
+      userInfo: store.getState().userInfo,
+  })
+}, 1000))
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <Router history={history}>
+        <App/>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 

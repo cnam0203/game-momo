@@ -70,44 +70,44 @@ const styles = {
 //     }
 // ]
 
-class RankPage extends Component {
+class History extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listCompetitors: [],
-            myRank: {
-                point: 12,
-                rank: 4
-            }
+            listMatches: [{
+                name: "Trinh Ngô",
+                phone: "0123456789",
+                status: "Lose"
+            }, {
+                name: "Thanh Sang",
+                phone: "0123456789",
+                status: "Win"
+            }, {
+                name: "Thuy Linh",
+                phone: "0123456789",
+                status: "Win"
+            }, {
+                name: "Trinh Ngô",
+                phone: "0123456789",
+                status: "Lose"
+            }],
         }
     }
 
     componentDidMount() {
         const { userInfo } = this.props
-        $.ajax({
-            type: "GET",
-            url: "http://192.168.1.121:5000/ranking",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('x-access-token', userInfo.token);
-              },
-            success: (data) => {
-                this.setState({listCompetitors: data.users})
-            },
-            error: (err) => {
-              alert("Failed")
-            }})
         // $.ajax({
-        //         type: "GET",
-        //         url: "http://192.168.1.121:5000/myRanking",
-        //         beforeSend: function (xhr) {
-        //             xhr.setRequestHeader('x-access-token', userInfo.token);
-        //           },
-        //         success: (data) => {
-        //             this.setState({myRank: data.myRank})
-        //         },
-        //         error: (err) => {
-        //           alert("Failed")
-        //         }})
+        //     type: "GET",
+        //     url: "http://192.168.1.121:5000/history",
+        //     beforeSend: function (xhr) {
+        //         xhr.setRequestHeader('x-access-token', userInfo.token);
+        //       },
+        //     success: (data) => {
+        //         this.setState({listMatches: data.users})
+        //     },
+        //     error: (err) => {
+        //       alert("Failed")
+        //     }})
     }
 
    render() {
@@ -119,21 +119,23 @@ class RankPage extends Component {
             <div style={{color: "white", fontWeight: "bold", fontSize: "20px", marginLeft: "90%"}}>{userInfo.name}</div>
             <img src={logo} style={{width:'80px', height: '80px', margin: '20px'}} alt='momo app'/>
             <img src={brand} style={{width:'150px'}} alt='momo app'/>
-            <div style={{width: "100%", textAlign: "center", marginTop: "100px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>Ranking</div>
-            <div style={styles.container}>
-                <div style={{width: '50%', alignItems: 'center', color: "white", justifyContent: 'center', fontSize: '30px', textAlign: 'center'}}>{`My Point: ${this.state.myRank.point}`}</div>
-                <div style={{width: '50%', alignItems: 'center', color: "white", justifyContent: 'center', fontSize: '30px', textAlign: 'center'}}>{`My Rank: ${this.state.myRank.rank}`}</div>
-            </div>
+            <div style={{width: "100%", textAlign: "center", marginTop: "100px", marginBottom: '40px', fontSize: '60px', fontWeight: "bold", color: "white"}}>HISTORY</div>
             <div style={styles.listChoice}>
                 {
-                    this.state.listCompetitors.map((user, index) => {
+                    this.state.listMatches.map((user, index) => {
                         return (
                             <div style={styles.container} key={index}>
                                 <div style={styles.button}>
                                     <div style={{width: "8%"}}>{`${index+1} -`}</div>
-                                    <div style={{width: "35%"}}>{` ${user.name}`}</div>
-                                    <div style={{width: "40%"}}>{` ${user.phone}`}</div>
-                                    <div style={{width: "5%"}}>{` ${user.point}`}</div>
+                                    <div style={{width: "32%"}}>{` ${user.name}`}</div>
+                                    <div style={{width: "32%"}}>{` ${user.phone}`}</div>
+                                    {
+                                        user.status === "Win" ? (
+                                            <div style={{width: "5%", color: '#a50064', fontWeight: 'bold'}}>{` ${user.status}`}</div>
+                                        ) : (
+                                            <div style={{width: "5%", color: '#000', fontWeight: 'bold'}}>{` ${user.status}`}</div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         )
@@ -153,4 +155,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps)(RankPage)
+export default connect(mapStateToProps)(History)
